@@ -7,6 +7,7 @@ import { MenuProvider } from './context/MenuContext'
 import { UserProvider, UserContext } from './context/UserContext'
 import Login from './components/Login';
 import Listas from './components/Listas';
+import { TodosProvider } from './context/todosContext';
 
 export default function App() {
 
@@ -18,7 +19,9 @@ export default function App() {
       </MenuProvider>
       <Login />
     </UserProvider>
-    <Listas />
+    <TodosProvider>
+      <Listas />
+    </TodosProvider>
 
   </div>
 }

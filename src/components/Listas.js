@@ -1,35 +1,14 @@
-import React, { useReducer, useRef } from 'react'
+import React, { useContext, useRef } from 'react'
+import {
+    TodosContext,
+    ADD_TODO,
+    UPDATE_TODO,
+    DELETE_TODO
+} from '../context/todosContext'
 
 export default function Listas() {
+    let { todos, dispatch } = useContext(TodosContext)
     let input = useRef()
-    let state = [
-        {
-            id: 0,
-            text: "Comer tamales y no engordar",
-            done: false
-        }
-    ]
-
-    let [todos, dispatch] = useReducer(reducer, state)
-
-    function reducer(state, action) {
-        switch (action.type) {
-            case "ADD_TODO":
-                return [...state, action.todo]
-            case "UPDATE_TODO":
-                let todo = state.find(t => t.id === action.id)
-                todo.done = !todo.done
-                return [...state.map(t => {
-                    if (t.id === action.id) return todo
-                    return t
-                })]
-            case "DELETE_TODO":
-                return [...state.filter(t => t.id !== action.id)]
-            default:
-                return state
-        }
-    }
-
     function addTodo(e) {
         if (e.key !== "Enter") return
         let todo = {
@@ -37,7 +16,7 @@ export default function Listas() {
             id: Math.floor(Math.random() * 10000),
             done: false
         }
-        dispatch({ type: "ADD_TODO", todo })
+        dispatch({ type: ADD_TODO, todo })
         input.current.value = ""
     }
 
@@ -52,15 +31,12 @@ export default function Listas() {
                     return (
                         <li key={t.id} style={styles.cursor} >
                             <span
-                                onClick={() => dispatch({ type: "UPDATE_TODO", id: t.id })}
+                                onClick={() => dispatch({ type: UPDATE_TODO, id: t.id })}
                                 style={t.done ? styles.tachado : {}}
                             >
                                 {t.text}
                             </span>
-                            <i onClick={() => dispatch({
-                                type: "DELETE_TODO",
-                                id: t.id
-                            })} >🖕🏽</i>
+                            <i onClick={() => dispatch({ type: DELETE_TODO, id: t.id })} >🖕🏽</i>
                         </li>
                     )
                 })}
