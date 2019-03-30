@@ -4,7 +4,7 @@ let MenuContext = React.createContext()
 let { Provider, Consumer } = MenuContext
 
 function MenuProvider({ children }) {
-    let [show, setShow] = useState(true)
+    let [show, setShow] = useState(false)
     function closeMenu() {
         setShow(false)
     }

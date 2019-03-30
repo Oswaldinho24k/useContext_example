@@ -6,6 +6,7 @@ import Menu from './components/Menu';
 import { MenuProvider } from './context/MenuContext'
 import { UserProvider, UserContext } from './context/UserContext'
 import Login from './components/Login';
+import Listas from './components/Listas';
 
 export default function App() {
 
@@ -17,6 +18,7 @@ export default function App() {
       </MenuProvider>
       <Login />
     </UserProvider>
+    <Listas />
 
   </div>
 }
